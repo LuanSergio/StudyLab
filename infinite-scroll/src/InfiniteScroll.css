@@ -1,0 +1,41 @@
+.container {
+  margin: 0 auto;
+  max-width: 1280px;
+  padding: 0 10px;
+}
+
+.post {
+  align-items: center;
+  background: #303361;
+  border: 4px solid #424679;
+  border-radius: 20px;
+  color: #f1f1f1;
+  display: flex;
+  justify-content: center;
+  height: 250px;
+  margin-top: 40px;
+  padding: 5px 10px;
+  transform: scale(0);
+
+  animation-fill-mode: forwards;
+  animation-name: popIn;
+  animation-delay: 0.2s;
+  animation-iteration-count: 1;
+  animation-duration: 0.5s;
+}
+
+.loading {
+  display: block;
+  color: #f1f1f1;
+  text-align: center;
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
