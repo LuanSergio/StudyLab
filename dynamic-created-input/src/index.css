@@ -22,12 +22,12 @@ code {
 
 .input {
   display: block;
-  background-color: #1f2143;
+  background-color: #303361;
   width: 100%;
   color: #f1f0f5;
   height: 50px;
   padding-left: 10px;
-  border: 3px solid #252746;
+  border: 3px solid #424679;
   border-radius: 6px;
   font-size: 18px;
   width: 100%;
@@ -35,7 +35,7 @@ code {
 }
 
 .input::placeholder {
-  color: #7e83c4;
+  color: #9295c0;
 }
 
 .input:focus {
@@ -58,8 +58,8 @@ code {
 
 .button {
   background: transparent;
-  border: 2px solid #58b8d9;
-  color: rgb(147, 223, 247);
+  border: 2px solid #0e7c7b;
+  color: #0ca19f;
   font-weight: bold;
   cursor: pointer;
   border-radius: 20px;
@@ -70,8 +70,8 @@ code {
 
 .remove {
   background: transparent;
-  border: 2px solid #8a6ae5;
-  color: #d3c4fa;
+  border: 2px solid #bd4d48;
+  color: #ff6961;
   font-weight: bold;
   cursor: pointer;
   border-radius: 20px;
@@ -81,11 +81,11 @@ code {
 }
 
 .button:hover {
-  background-color: #58b8d9;
+  background-color: #0ca19f;
   color: #f1f0f5;
 }
 
 .remove:hover {
-  background-color: #8a6ae5;
+  background-color: #ff6961;
   color: #f1f0f5;
 }
