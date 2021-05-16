@@ -1,0 +1,33 @@
+.container {
+  text-align: center;
+}
+
+.input {
+  background-color: #303361;
+  border: 2px solid #424679;
+  padding: 5px;
+  color: #f1f1f1;
+  height: 30px;
+  margin: 20px 10px;
+  text-transform: capitalize;
+  font-size: 15px;
+}
+
+.input.date {
+  text-transform: uppercase;
+}
+
+.input::placeholder {
+  color: #f1f1f1;
+  text-transform: capitalize;
+  font-size: 15px;
+}
+
+::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+*:focus {
+  outline: none;
+  border: 2px solid #0ca19f;
+}

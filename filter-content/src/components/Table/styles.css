@@ -1,0 +1,28 @@
+.table {
+  background-color: #303361;
+  border: 4px solid #424679;
+  color: #f1f1f1;
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.table th {
+  border: 2px solid #424679;
+  color: #e0b863;
+  /* color: #d861d8; */
+  background-color: #2d2f57;
+  padding: 10px;
+}
+
+.table td {
+  font-size: 15px;
+  text-transform: capitalize;
+  border: 2px solid #424679;
+  padding: 10px;
+  text-align: center;
+}
+
+.table td:hover {
+  background-color: #4c5197;
+}
