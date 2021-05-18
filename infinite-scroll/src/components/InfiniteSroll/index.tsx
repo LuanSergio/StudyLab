@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import "./InfiniteScroll.css";
+import "./styles.css";
 
 interface IPostList {
   list: Array<string>;
 }
 
-export const InfiniteScroll = () => {
+const InfiniteScroll = () => {
   const [postList, setPostList] = useState<IPostList>({
     list: ["1", "2", "3", "4"],
   });
@@ -64,3 +64,5 @@ export const InfiniteScroll = () => {
     </div>
   );
 };
+
+export default InfiniteScroll;

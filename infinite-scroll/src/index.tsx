@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import { InfiniteScroll } from "./InfiniteScroll";
+import InfiniteScroll from "./components/InfiniteSroll";
 
 ReactDOM.render(
   <React.StrictMode>
