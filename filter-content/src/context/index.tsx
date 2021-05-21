@@ -1,4 +1,11 @@
-import React, { createContext, ReactNode, useContext, useState } from "react";
+import React, {
+  createContext,
+  ReactNode,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 interface IData {
   name: string;
@@ -10,14 +17,14 @@ interface ContextData {
   data: IData[];
   list: IData[];
   handleChange: (
-    key: "name" | "color" | "date",
+    key: keyof IData,
     event: React.ChangeEvent<{ value: string }>
   ) => void;
   setListInitialValue: () => void;
 }
 
 interface IFilter {
-  fruit: string;
+  name: string;
   color: string;
   date: string;
 }
@@ -87,27 +94,42 @@ const data: IData[] = [
 export const FilterContext = createContext({} as ContextData);
 
 export function FilterContextProvider({ children }: ContextProviderProps) {
-  const [list, setList] = useState<IData[]>(data);
+  const [list, setList] = useState<IData[]>([...data]);
   const [filter, setFilter] = useState<IFilter>({
-    fruit: "",
+    name: "",
     color: "",
     date: "",
   });
 
   function handleChange(
-    key: "name" | "color" | "date",
+    key: keyof IData,
     event: React.ChangeEvent<{ value: string }>
   ): void {
-    filterList(key, event.target.value);
+    const newFilter = { ...filter };
+    newFilter[key as keyof IData] = event.target.value;
+    setList([...data]);
+    setFilter({ ...newFilter });
+    filterList();
   }
 
-  function filterList(key: "name" | "color" | "date", value: string): void {
-    const newList = data.filter((item) => item[key] === value);
-    setList(newList);
-  }
+  const filterList = useCallback((): void => {
+    const keys = Object.keys(filter) as Array<keyof IData>;
+    let newList: IData[] = [...data];
+
+    keys.forEach((key: keyof IData) => {
+      if (filter[key]) {
+        newList = newList.filter((item: IData) => item[key] === filter[key]);
+      }
+    });
+    setList([...newList]);
+  }, [filter]);
+
+  useEffect(() => {
+    filterList();
+  }, [filter, filterList]);
 
   function setListInitialValue(): void {
-    setList(data);
+    setList({ ...data });
   }
 
   return (

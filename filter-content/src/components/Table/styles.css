@@ -17,12 +17,19 @@
 
 .table td {
   font-size: 15px;
-  text-transform: capitalize;
   border: 2px solid #424679;
   padding: 10px;
   text-align: center;
 }
 
+.table td:not(.error) {
+  text-transform: capitalize;
+}
+
 .table td:hover {
   background-color: #4c5197;
+}
+
+.error {
+  text-transform: initial;
 }
