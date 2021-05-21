@@ -1,11 +1,16 @@
 .container {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .input {
   background-color: #303361;
   border: 2px solid #424679;
   padding: 5px;
+  max-width: 200px;
+  width: 100%;
   color: #f1f1f1;
   height: 30px;
   margin: 20px 10px;
@@ -30,4 +35,27 @@
 *:focus {
   outline: none;
   border: 2px solid #0ca19f;
+}
+
+.clear-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  height: 30px;
+  padding: 0;
+  width: 30px;
+  border: none;
+  border-radius: 90%;
+  color: #f1f1f1;
+  line-height: 0;
+  font-size: 15px;
+  font-weight: bold;
+  display: block;
+  cursor: pointer;
+  transition: background-color 0.2s, border 0.25s;
+}
+
+.clear-button:hover {
+  background-color: #424679;
 }

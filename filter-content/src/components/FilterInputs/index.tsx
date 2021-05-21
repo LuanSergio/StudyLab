@@ -2,15 +2,10 @@ import "./styles.css";
 import React from "react";
 import { useFilter } from "../../context";
 
-interface IData {
-  name: string;
-  color: string;
-  createdAt: string;
-}
-
 const FilterInputs = () => {
-  const { data, handleFruitChange, handleColorChange } = useFilter();
+  const { data, handleChange } = useFilter();
   const colors = Array.from(new Set(data.map((item) => item.color)));
+  const fruits = Array.from(new Set(data.map((item) => item.name)));
 
   function handleInputClick(
     event: React.MouseEvent<HTMLInputElement, MouseEvent>
@@ -22,26 +17,28 @@ const FilterInputs = () => {
     <div className="container">
       <input
         onClick={(event) => handleInputClick(event)}
-        onChange={handleFruitChange}
+        onChange={(event) => handleChange("name", event)}
         className="input"
         title="Filter by fruits"
         list="fruits"
-        name="fruits"
+        name="fruit"
         type="text"
         spellCheck="false"
         placeholder="Fruits"
       />
 
       <datalist id="fruits">
-        {data.map((item: IData, index: number) => (
-          <option value={item.name} key={index} />
+        {fruits.map((fruit: string, index: number) => (
+          <option value={fruit} key={index} />
         ))}
       </datalist>
+
+      <button className="clear-button">✕</button>
 
       <input
         className="input"
         onClick={(event) => handleInputClick(event)}
-        onChange={handleColorChange}
+        onChange={(event) => handleChange("color", event)}
         title="Filter by color"
         list="color"
         name="color"
@@ -50,6 +47,8 @@ const FilterInputs = () => {
         placeholder="Color"
       />
 
+      <button className="clear-button">✕</button>
+
       <datalist id="color">
         {colors.map((color: string, index: number) => (
           <option value={color} key={index} />
@@ -57,6 +56,8 @@ const FilterInputs = () => {
       </datalist>
 
       <input className="input date" type="date" name="date" />
+
+      <button className="clear-button">✕</button>
     </div>
   );
 };

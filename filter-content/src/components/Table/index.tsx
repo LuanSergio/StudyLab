@@ -4,7 +4,7 @@ import { useFilter } from "../../context";
 interface IData {
   name: string;
   color: string;
-  createdAt: string;
+  date: string;
 }
 
 function Table() {
@@ -23,7 +23,7 @@ function Table() {
           <tr key={`${item.name} + ${index}`}>
             <td>{item.name}</td>
             <td>{item.color}</td>
-            <td>{item.createdAt}</td>
+            <td>{item.date}</td>
           </tr>
         ))}
       </tbody>
