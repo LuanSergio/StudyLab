@@ -6,8 +6,8 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { format } from "date-fns";
 import { data } from "../data/data";
+import { formatDate } from "../utils/formatDate";
 
 interface ContextData {
   data: IData[];
@@ -32,19 +32,12 @@ export function FilterContextProvider({ children }: ContextProviderProps) {
     date: "",
   });
 
-  const formatDate = (value: string): string => {
-    const date = new Date(value);
-    const fixedDate = new Date(
-      date.valueOf() + date.getTimezoneOffset() * 60 * 1000
-    ); // Fix date even on different timezones
-    return format(new Date(fixedDate), "YYY/MM/dd");
-  };
-
   const handleChange = (
     key: keyof IData,
     event: React.ChangeEvent<{ value: string }>
   ): void => {
     const newFilter = { ...filter };
+
     newFilter[key as keyof IData] =
       key === "date" ? formatDate(event.target.value) : event.target.value;
     setFilter({ ...newFilter });
