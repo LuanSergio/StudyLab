@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { v4 as uuid } from "uuid";
+import "./styles.css";
 
 interface IOptionInput {
   id: string;
@@ -37,9 +38,9 @@ const alphabet = [
   "Z",
 ];
 
-const maxLength = 200;
+const maxLength = 25;
 
-export default function App() {
+const DynamicInput = () => {
   const inputList: Array<IOptionInput> = [
     {
       id: "A1",
@@ -57,20 +58,19 @@ export default function App() {
 
   const [inputs, setInputs] = useState(inputList);
 
-  const handleOnChange = (id: string) => (
-    evt: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setInputs((inputs) =>
-      inputs.map((input) =>
-        input.id === id
-          ? {
-              ...input,
-              value: evt.target.value,
-            }
-          : input
-      )
-    );
-  };
+  const handleOnChange =
+    (id: string) => (evt: React.ChangeEvent<HTMLInputElement>) => {
+      setInputs((inputs) =>
+        inputs.map((input) =>
+          input.id === id
+            ? {
+                ...input,
+                value: evt.target.value,
+              }
+            : input
+        )
+      );
+    };
 
   function reorderList(list: Array<IOptionInput>) {
     return list.map((item, index) => {
@@ -83,7 +83,6 @@ export default function App() {
   function handleRemoveOptionInput(id: string): void {
     const newList = inputs.filter((item) => item.id !== id);
     const reorderedList = reorderList(newList);
-    console.log("reordered:", reorderedList);
     setInputs(reorderedList);
   }
 
@@ -99,7 +98,6 @@ export default function App() {
       });
       setInputs(newList);
     }
-    console.log("inputs", inputs);
   }
 
   function getAlphabetLetters(): Array<string> {
@@ -143,4 +141,6 @@ export default function App() {
       </div>
     </div>
   );
-}
+};
+
+export default DynamicInput;

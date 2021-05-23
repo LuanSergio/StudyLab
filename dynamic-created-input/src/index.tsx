@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import DynamicInput from "./components/DynamicInput";
 import "./index.css";
-import App from "./App";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <DynamicInput />
   </React.StrictMode>,
   document.getElementById("root")
 );
