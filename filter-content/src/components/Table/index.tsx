@@ -1,12 +1,6 @@
 import "./styles.css";
 import { useFilter } from "../../context";
 
-interface IData {
-  name: string;
-  color: string;
-  date: string;
-}
-
 function Table() {
   const { list } = useFilter();
 

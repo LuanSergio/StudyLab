@@ -8,6 +8,7 @@ const FilterInputs = () => {
   const fruits = Array.from(new Set(data.map((item) => item.name)));
 
   function handleInputClick(
+    name: string,
     event: React.MouseEvent<HTMLInputElement, MouseEvent>
   ): void {
     (event.target as HTMLInputElement).value = "";
@@ -16,7 +17,7 @@ const FilterInputs = () => {
   return (
     <div className="container">
       <input
-        onClick={(event) => handleInputClick(event)}
+        onClick={(event) => handleInputClick("name", event)}
         onChange={(event) => handleChange("name", event)}
         className="input"
         title="Filter by fruits"
@@ -37,7 +38,7 @@ const FilterInputs = () => {
 
       <input
         className="input"
-        onClick={(event) => handleInputClick(event)}
+        onClick={(event) => handleInputClick("color", event)}
         onChange={(event) => handleChange("color", event)}
         title="Filter by color"
         list="color"
