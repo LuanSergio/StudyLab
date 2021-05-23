@@ -12,10 +12,12 @@ import { formatDate } from "../utils/formatDate";
 interface ContextData {
   data: IData[];
   list: IData[];
+  clearFilterProperty: (key: keyof IData) => void;
   handleChange: (
     key: keyof IData,
     event: React.ChangeEvent<{ value: string }>
   ) => void;
+  handleClearButtonClick: (key: keyof IData) => void;
 }
 
 type ContextProviderProps = {
@@ -44,6 +46,18 @@ export function FilterContextProvider({ children }: ContextProviderProps) {
     setList([...data]);
   };
 
+  const handleClearButtonClick = (key: keyof IData) => {
+    clearFilterProperty(key);
+  };
+
+  const clearFilterProperty = (key: keyof IData): void => {
+    const newFilter = { ...filter };
+    newFilter[key as keyof IData] = "";
+    console.log("limpou");
+    setList([...data]);
+    setFilter({ ...newFilter });
+  };
+
   const filterList = useCallback((): void => {
     const keys = Object.keys(filter) as Array<keyof IData>;
     let newList: IData[] = [...data];
@@ -65,7 +79,9 @@ export function FilterContextProvider({ children }: ContextProviderProps) {
       value={{
         data,
         list,
+        clearFilterProperty,
         handleChange,
+        handleClearButtonClick,
       }}
     >
       {children}

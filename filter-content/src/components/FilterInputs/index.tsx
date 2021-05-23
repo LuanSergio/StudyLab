@@ -3,14 +3,16 @@ import React from "react";
 import { useFilter } from "../../context";
 
 const FilterInputs = () => {
-  const { data, handleChange } = useFilter();
+  const { data, handleChange, clearFilterProperty, handleClearButtonClick } =
+    useFilter();
   const colors = Array.from(new Set(data.map((item) => item.color)));
   const fruits = Array.from(new Set(data.map((item) => item.name)));
 
   function handleInputClick(
-    name: string,
+    key: keyof IData,
     event: React.MouseEvent<HTMLInputElement, MouseEvent>
   ): void {
+    clearFilterProperty(key);
     (event.target as HTMLInputElement).value = "";
   }
 
@@ -34,7 +36,12 @@ const FilterInputs = () => {
         ))}
       </datalist>
 
-      <button className="clear-button">x</button>
+      <button
+        onClick={() => handleClearButtonClick("name")}
+        className="clear-button"
+      >
+        x
+      </button>
 
       <input
         className="input"
@@ -48,7 +55,12 @@ const FilterInputs = () => {
         placeholder="Color"
       />
 
-      <button className="clear-button">x</button>
+      <button
+        onClick={() => handleClearButtonClick("color")}
+        className="clear-button"
+      >
+        x
+      </button>
 
       <datalist id="color">
         {colors.map((color: string, index: number) => (
@@ -57,13 +69,19 @@ const FilterInputs = () => {
       </datalist>
 
       <input
+        onClick={(event) => handleInputClick("date", event)}
         onChange={(event) => handleChange("date", event)}
         className="input date"
         type="date"
         name="date"
       />
 
-      <button className="clear-button">x</button>
+      <button
+        onClick={() => handleClearButtonClick("date")}
+        className="clear-button"
+      >
+        x
+      </button>
     </div>
   );
 };
