@@ -86,7 +86,7 @@ const data: IData[] = [
     date: "2021/04/05",
   },
   {
-    name: "green apple 🍏",
+    name: "Avocado 🥑",
     color: "green",
     date: "2021/04/12",
   },
@@ -117,10 +117,8 @@ export function FilterContextProvider({ children }: ContextProviderProps) {
     const newFilter = { ...filter };
     newFilter[key as keyof IData] =
       key === "date" ? formatDate(event.target.value) : event.target.value;
-    setList([...data]);
-
     setFilter({ ...newFilter });
-    filterList();
+    setList([...data]);
   }
 
   const filterList = useCallback((): void => {

@@ -33,7 +33,7 @@ const FilterInputs = () => {
         ))}
       </datalist>
 
-      <button className="clear-button">✕</button>
+      <button className="clear-button">x</button>
 
       <input
         className="input"
@@ -47,7 +47,7 @@ const FilterInputs = () => {
         placeholder="Color"
       />
 
-      <button className="clear-button">✕</button>
+      <button className="clear-button">x</button>
 
       <datalist id="color">
         {colors.map((color: string, index: number) => (
@@ -62,7 +62,7 @@ const FilterInputs = () => {
         name="date"
       />
 
-      <button className="clear-button">✕</button>
+      <button className="clear-button">x</button>
     </div>
   );
 };
