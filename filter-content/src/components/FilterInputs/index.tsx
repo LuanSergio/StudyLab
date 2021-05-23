@@ -55,7 +55,12 @@ const FilterInputs = () => {
         ))}
       </datalist>
 
-      <input className="input date" type="date" name="date" />
+      <input
+        onChange={(event) => handleChange("date", event)}
+        className="input date"
+        type="date"
+        name="date"
+      />
 
       <button className="clear-button">✕</button>
     </div>
