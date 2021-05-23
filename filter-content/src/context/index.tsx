@@ -32,24 +32,24 @@ export function FilterContextProvider({ children }: ContextProviderProps) {
     date: "",
   });
 
-  function formatDate(value: string) {
+  const formatDate = (value: string): string => {
     const date = new Date(value);
     const fixedDate = new Date(
       date.valueOf() + date.getTimezoneOffset() * 60 * 1000
     ); // Fix date even on different timezones
     return format(new Date(fixedDate), "YYY/MM/dd");
-  }
+  };
 
-  function handleChange(
+  const handleChange = (
     key: keyof IData,
     event: React.ChangeEvent<{ value: string }>
-  ): void {
+  ): void => {
     const newFilter = { ...filter };
     newFilter[key as keyof IData] =
       key === "date" ? formatDate(event.target.value) : event.target.value;
     setFilter({ ...newFilter });
     setList([...data]);
-  }
+  };
 
   const filterList = useCallback((): void => {
     const keys = Object.keys(filter) as Array<keyof IData>;
