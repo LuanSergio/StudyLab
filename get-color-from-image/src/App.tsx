@@ -1,5 +1,7 @@
+import BoxWithImage from "./components/BoxWithImage";
+
 function App() {
-  return <div>Hello world</div>;
+  return <BoxWithImage />;
 }
 
 export default App;
