@@ -1,7 +1,7 @@
-import BoxWithImage from "./components/BoxWithImage";
+import ContentContainer from "./components/ContentContainer";
 
 function App() {
-  return <BoxWithImage />;
+  return <ContentContainer />;
 }
 
 export default App;
