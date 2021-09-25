@@ -1,0 +1,68 @@
+.overflow {
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.overflow__content--contained {
+  overflow-y: scroll;
+  max-height: 300px;
+  /* hide scrollbar on Internet Explorer 10+ */
+  /* -ms-overflow-style: none; */
+  /* hide scrollbar on Firefox */
+  /* scrollbar-width: none;  */
+
+  /* firefox custom scrollbar */
+  scrollbar-color: blue transparent;
+  scrollbar-width: thin;
+
+  /* ie and edge custom scroll bar */
+  scrollbar-face-color: transparent;
+  scrollbar-track-color: blue;
+  scrollbar-arrow-color: transparent;
+  scrollbar-shadow-color: transparent; /*border */
+}
+
+/* hide scrollbar on Safari and Chrome */
+/* .overflow__content::-webkit-scrollbar {
+  display: none; 
+} */
+
+/* chrome custom scroll bar */
+.overflow__content--contained::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.overflow__content--contained::-webkit-scrollbar-track {
+  background-color: transparent;
+  border-radius: 30px;
+}
+
+.overflow__content--contained::-webkit-scrollbar-thumb {
+  background-color: blue;
+  border-radius: 30px;
+}
+
+.overflow__content--contained::-webkit-scrollbar-corner {
+  background-color: blue;
+}
+
+/* .overflow::after {
+  content: "atum";
+  font-size: 16px;
+  display: block;
+} */
+
+.overflow--contained::after {
+  content: ">";
+  text-align: center;
+  transform: rotate(90deg);
+  font-size: 64px;
+  display: block;
+}
+
+.size {
+  text-align: center;
+  padding: 20px 0;
+}
