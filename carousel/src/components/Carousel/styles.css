@@ -1,0 +1,34 @@
+.carousel {
+  width: 90%;
+  height: 100%;
+  touch-action: pan-y;
+  overflow: hidden;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+}
+
+.carousel__items-holder {
+  margin-top: 0;
+  margin-bottom: 0;
+  display: flex;
+  border: hotpink 5px solid;
+  padding-left: 0;
+  list-style: none;
+  max-width: 1200px;
+  width: 100%;
+  transition: transform 0.2s ease;
+  gap: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  /* transform: translate3d(-800px, 0px, 0px); */
+}
+
+.carousel__controls {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
