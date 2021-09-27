@@ -14,13 +14,21 @@ const Carousel = ({
   const [navigationIndex, setNavigationIndex] = useState(0);
 
   function updateIndex(newIndex: number): void {
-    if (navigationIndex > 0) {
+    setNavigationIndex((previousState) => previousState + newIndex);
+  }
+
+  function goToPreviousIndex(newIndex: number): void {
+    if (navigationIndex + 689 >= 689) {
       newIndex = 0;
     }
-    // if (-(Children.count(children) * 665) >= navigationIndex) {
-    //   newIndex = 0;
-    // }
-    setNavigationIndex((previousState) => previousState + newIndex);
+    updateIndex(newIndex);
+  }
+
+  function goToNextIndex(newIndex: number): void {
+    if (-(Children.count(children) * 689) >= navigationIndex - 689) {
+      newIndex = 0;
+    }
+    updateIndex(newIndex);
   }
 
   return (
@@ -32,8 +40,8 @@ const Carousel = ({
         {children}
       </Tag>
       <div className="carousel__controls">
-        <button onClick={() => updateIndex(665)}>{"< Previous"}</button>
-        <button onClick={() => updateIndex(-665)}>{"Next >"}</button>
+        <button onClick={() => goToPreviousIndex(689)}>{"< Previous"}</button>
+        <button onClick={() => goToNextIndex(-689)}>{"Next >"}</button>
       </div>
     </div>
   );

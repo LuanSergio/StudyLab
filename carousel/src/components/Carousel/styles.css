@@ -12,15 +12,15 @@
   margin-top: 0;
   margin-bottom: 0;
   display: flex;
-  border: hotpink 5px solid;
+  /* border: hotpink 5px solid; */
   padding-left: 0;
   list-style: none;
   max-width: 1200px;
   width: 100%;
-  transition: transform 0.2s ease;
+  transition: transform 0.1s linear;
   gap: 20px;
-  margin-left: auto;
-  margin-right: auto;
+  /* margin-left: auto;
+  margin-right: auto; */
   /* transform: translate3d(-800px, 0px, 0px); */
 }
 
