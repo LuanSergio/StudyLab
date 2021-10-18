@@ -9,6 +9,10 @@ function App() {
       <Item>Slide 3</Item>
       <Item>Slide 4</Item>
       <Item>Slide 5</Item>
+      <Item>Slide 6</Item>
+      <Item>Slide 7</Item>
+      <Item>Slide 8</Item>
+      <Item>Slide 9</Item>
     </Carousel>
   );
 }

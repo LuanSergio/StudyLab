@@ -11,9 +11,13 @@ const Carousel = ({
   tagName = "div",
 }: CarouselProps): JSX.Element => {
   const Tag = tagName as keyof JSX.IntrinsicElements;
-  const itemWidth = 689;
+  const itemWidth = 468.667;
   const [navigationIndex, setNavigationIndex] = useState(0);
-  const [mousePosition, setMousePosition] = useState(0);
+
+  const [itemIndex, setItemIndex] = useState(0);
+  const [position, setPosition] = useState(0);
+  const [initialPosition, setInicialPosition] = useState(0);
+  const [isMouseLocked, setIsMouseLocked] = useState(false);
 
   function updateIndex(newIndex: number): void {
     setNavigationIndex((previousState) => previousState + newIndex);
@@ -36,30 +40,49 @@ const Carousel = ({
     updateIndex(newIndex);
   }
 
-  function move(event: React.MouseEvent) {
-    event.preventDefault();
-    console.log("initial position", event.clientX);
-    updateIndex(-event.clientX);
-    setMousePosition(event.clientX);
-  }
-
-  function lock(event: React.MouseEvent) {
-    event.preventDefault();
-    console.log("end position", event.clientX);
-    const calculatedPosition = event.clientX - mousePosition;
-    console.log("calculated position", calculatedPosition);
-    if (calculatedPosition >= itemWidth / 3) {
-      goToPreviousIndex(itemWidth);
-    } else if (calculatedPosition <= -(itemWidth / 3)) {
-      goToNextIndex(-itemWidth);
+  function moveCarousel(event: React.MouseEvent): void {
+    if (isMouseLocked) {
+      const moved = initialPosition - event.clientX;
+      setPosition(moved);
+      console.log("moved", moved);
     }
   }
 
+  function handleMouseDown(event: React.MouseEvent): void {
+    event.preventDefault();
+    setIsMouseLocked(true);
+    setInicialPosition(event.clientX);
+    console.log(event.clientX);
+  }
+
+  function handleMouseMove(event: React.MouseEvent): void {
+    if (isMouseLocked) {
+      const travelDistance = event.clientX - initialPosition;
+      event.preventDefault();
+      // if (travelDistance > itemWidth) {
+      //   setItemIndex((previoustState) => previoustState + 1);
+      // } else if (travelDistance < -itemWidth) {
+      //   setItemIndex((previoustState) => previoustState - 1);
+      // }
+      setPosition(travelDistance);
+    }
+  }
+
+  function handleMouseUp(event: React.MouseEvent): void {
+    event.preventDefault();
+    setIsMouseLocked(false);
+  }
+
   return (
-    <div className="carousel" onMouseDown={move} onMouseUp={lock}>
+    <div
+      className="carousel"
+      onMouseDown={handleMouseDown}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
+    >
       <Tag
         className="carousel__items-holder"
-        style={{ transform: `translateX(${navigationIndex}px)` }}
+        style={{ transform: `translateX(${position}px)` }}
       >
         {children}
       </Tag>
