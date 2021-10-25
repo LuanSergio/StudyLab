@@ -6,20 +6,21 @@ interface CarouselProps {
   tagName?: keyof JSX.IntrinsicElements;
 }
 
+let isMouseLocked = false;
+
 const Carousel = ({
   children,
   tagName = "div",
 }: CarouselProps): JSX.Element => {
   const Tag = tagName as keyof JSX.IntrinsicElements;
 
-  const [isMouseLocked, setIsMouseLocked] = useState(false);
   const [position, setPosition] = useState(0);
   const [initialPosition, setInicialPosition] = useState(0);
   const [lastPosition, setLastPosition] = useState(0);
 
   function handleMouseDown(event: React.MouseEvent): void {
     event.preventDefault();
-    setIsMouseLocked(true);
+    isMouseLocked = true;
     setInicialPosition(event.clientX);
   }
 
@@ -33,7 +34,7 @@ const Carousel = ({
   function handleMouseUp(event: React.MouseEvent): void {
     event.preventDefault();
     setLastPosition(position);
-    setIsMouseLocked(false);
+    isMouseLocked = false;
   }
 
   // function handleMouseLeave(event: React.MouseEvent): void {
