@@ -1,12 +1,12 @@
-import { ReactNode } from "react";
+import { ReactNode, memo } from "react";
 import "./styles.css";
 
 interface ItemProps {
   children: ReactNode;
 }
 
-const Item = ({ children }: ItemProps): JSX.Element => {
+function Item({ children }: ItemProps): JSX.Element {
   return <li className="item">{children}</li>;
-};
+}
 
-export default Item;
+export default memo(Item);
