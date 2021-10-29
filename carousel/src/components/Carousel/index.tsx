@@ -9,6 +9,7 @@ interface CarouselProps {
 let isMouseLocked = false;
 let initialPosition = 0;
 let lastPosition = 0;
+let position = 0;
 
 const Carousel = ({
   children,
@@ -16,7 +17,12 @@ const Carousel = ({
 }: CarouselProps): JSX.Element => {
   const Tag = tagName as keyof JSX.IntrinsicElements;
 
-  const [position, setPosition] = useState(0);
+  function updateCarouselPosition() {
+    document.documentElement.style.setProperty(
+      "--carousel-position",
+      `${position}px`
+    );
+  }
 
   function handleMouseDown(event: React.MouseEvent): void {
     event.preventDefault();
@@ -27,7 +33,8 @@ const Carousel = ({
   function handleMouseMove(event: React.MouseEvent): void {
     if (isMouseLocked) {
       const travelDistance = event.clientX - initialPosition;
-      setPosition(travelDistance + lastPosition);
+      position = travelDistance + lastPosition;
+      updateCarouselPosition();
     }
   }
 
@@ -49,12 +56,7 @@ const Carousel = ({
       onMouseUp={handleMouseUp}
       // onMouseLeave={handleMouseLeave}
     >
-      <Tag
-        className="carousel__items-holder"
-        style={{ transform: `translateX(${position * 2}px)` }}
-      >
-        {children}
-      </Tag>
+      <Tag className="carousel__items-holder">{children}</Tag>
     </div>
   );
 };
