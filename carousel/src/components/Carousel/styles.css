@@ -2,11 +2,13 @@
   width: 100%;
   height: 100%;
   touch-action: pan-y;
-  overflow: hidden;
   margin-left: auto;
   margin-right: auto;
   position: relative;
   user-select: none;
+  overflow-x: visible;
+  transition-property: transform;
+  transition-duration: 0s;
   transform: translateX(var(--carousel-position));
   will-change: transform;
 }
@@ -20,11 +22,8 @@
   list-style: none;
   max-width: 1200px;
   width: 100%;
-  transition: transform 0.1s linear;
-  gap: 30px;
-  /* margin-left: auto;
-  margin-right: auto; */
-  /* transform: translate3d(-800px, 0px, 0px); */
+  gap: 60px;
+  will-change: transform;
 }
 
 .carousel__controls {
@@ -34,4 +33,5 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
+  will-change: transform;
 }

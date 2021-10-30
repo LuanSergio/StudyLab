@@ -3,11 +3,13 @@
   color: #fff;
   /* border: 2px solid #b3b3b3; */
   height: 100vh;
-  width: 438.667px;
+  width: 500px;
   flex-shrink: 0;
   font-size: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
   pointer-events: none;
+  transition-property: transform;
+  transition-duration: 0s;
 }
