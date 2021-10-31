@@ -1,4 +1,4 @@
-import { Children, ReactNode, useEffect, useState } from "react";
+import { Children, ReactNode, useRef } from "react";
 import "./styles.css";
 
 interface CarouselProps {
@@ -21,18 +21,31 @@ const Carousel = ({
   tagName = "div",
 }: CarouselProps): JSX.Element => {
   const Tag = tagName as keyof JSX.IntrinsicElements;
+  const carouselRef = useRef<HTMLDivElement>(null);
   let itemLength = Children.count(children);
 
-  function updateCarouselPosition(newPosition: number): void {
-    document.documentElement.style.setProperty(
+  async function updateCarouselPosition(newPosition: number): Promise<void> {
+    await document.documentElement.style.setProperty(
       "--carousel-position",
       `${newPosition}px`
     );
   }
 
-  function updateCarouselIndex(newPosition: number): void {
-    document.documentElement.style.setProperty("transition-duration", `300ms`);
-    updateCarouselPosition(newPosition);
+  function setCarouselAnimationDuration() {
+    carouselRef.current?.style.setProperty("transition-duration", `300ms`);
+  }
+
+  function removeCarouselAnimationDuration() {
+    setTimeout(() => {
+      carouselRef.current?.style.setProperty("transition-duration", `0ms`);
+    }, 300);
+  }
+
+  async function updateCarouselIndex(newPosition: number): Promise<void> {
+    setCarouselAnimationDuration();
+    await updateCarouselPosition(newPosition);
+
+    removeCarouselAnimationDuration();
   }
 
   function handleMouseDown(event: React.MouseEvent): void {
@@ -53,20 +66,10 @@ const Carousel = ({
     event.preventDefault();
     lastPosition = position;
     isMouseLocked = false;
-    // index = Math.floor(Math.abs(position) / (totalItemWidth / 2));
-    // console.log("index", index * totalItemWidth);
+
+    // index = Math.floor(Math.abs(position) / totalItemWidth);
     // position = index * totalItemWidth;
-    // console.log("position", position);
     // updateCarouselIndex(-position);
-    // console.log("updated value", index * itemWidth);
-    // console.log(
-    //   "position: ",
-    //   Math.abs(position),
-    //   "itemWidth: ",
-    //   itemWidth,
-    //   "result: ",
-    //   Math.floor(Math.abs(position) / itemWidth)
-    // );
   }
 
   function goToPreviousIndex(newIndex: number): void {}
@@ -80,7 +83,6 @@ const Carousel = ({
   return (
     <div
       className="container"
-      id="carousel"
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
@@ -88,7 +90,7 @@ const Carousel = ({
     >
       <div
         className="carousel"
-
+        ref={carouselRef}
         // onMouseLeave={handleMouseLeave}
       >
         <Tag className="carousel__items-holder">{children}</Tag>
