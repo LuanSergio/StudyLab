@@ -67,9 +67,10 @@ const Carousel = ({
     lastPosition = position;
     isMouseLocked = false;
 
-    // index = Math.floor(Math.abs(position) / totalItemWidth);
-    // position = index * totalItemWidth;
-    // updateCarouselIndex(-position);
+    //jump effect
+    index = Math.floor(Math.abs(position) / totalItemWidth);
+    position = index * totalItemWidth;
+    updateCarouselIndex(-position);
   }
 
   function goToPreviousIndex(newIndex: number): void {}
