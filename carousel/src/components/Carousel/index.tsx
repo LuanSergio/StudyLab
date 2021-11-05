@@ -68,33 +68,53 @@ const Carousel = ({
     isMouseLocked = false;
 
     //jump effect
-    index = Math.floor(Math.abs(position) / totalItemWidth);
-    position = index * totalItemWidth;
-    updateCarouselIndex(-position);
+    // index = Math.floor(Math.abs(position) / totalItemWidth);
+    // position = index * totalItemWidth;
+    // updateCarouselIndex(-position);
   }
 
-  function goToPreviousIndex(newIndex: number): void {}
+  function goToPreviousIndex(newIndex: number): void {
+    console.log("index", index);
 
-  function goToNextIndex(newIndex: number): void {}
+    if (index > 0) {
+      console.log("previous item");
+
+      index--;
+      position = index * totalItemWidth;
+      updateCarouselIndex(-position);
+    }
+  }
+
+  function goToNextIndex(newIndex: number): void {
+    console.log("index", index);
+    if (index < itemLength - 1) {
+      console.log("next item");
+      index++;
+      position = index * totalItemWidth;
+      updateCarouselIndex(-position);
+    }
+  }
 
   function handleMouseLeave(event: React.MouseEvent): void {
     isMouseLocked = false;
   }
 
   return (
-    <div
-      className="container"
-      onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseLeave}
-    >
+    <>
       <div
-        className="carousel"
-        ref={carouselRef}
-        // onMouseLeave={handleMouseLeave}
+        className="container"
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseLeave}
       >
-        <Tag className="carousel__items-holder">{children}</Tag>
+        <div
+          className="carousel"
+          ref={carouselRef}
+          // onMouseLeave={handleMouseLeave}
+        >
+          <Tag className="carousel__items-holder">{children}</Tag>
+        </div>
       </div>
       <div className="carousel__controls">
         <button onClick={() => goToPreviousIndex(itemWidth)}>
@@ -103,7 +123,7 @@ const Carousel = ({
 
         <button onClick={() => goToNextIndex(-itemWidth)}>{"Next >"}</button>
       </div>
-    </div>
+    </>
   );
 };
 
