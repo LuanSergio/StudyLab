@@ -15,6 +15,7 @@ let index = 0;
 const itemWidth = 500;
 const gap = 30;
 const totalItemWidth = itemWidth + gap;
+const animationDuration = 300;
 
 const Carousel = ({
   children,
@@ -32,13 +33,16 @@ const Carousel = ({
   }
 
   function setCarouselAnimationDuration() {
-    carouselRef.current?.style.setProperty("transition-duration", `300ms`);
+    carouselRef.current?.style.setProperty(
+      "transition-duration",
+      `${animationDuration}ms`
+    );
   }
 
   function removeCarouselAnimationDuration() {
     setTimeout(() => {
       carouselRef.current?.style.setProperty("transition-duration", `0ms`);
-    }, 300);
+    }, animationDuration);
   }
 
   async function updateCarouselIndex(newPosition: number): Promise<void> {
