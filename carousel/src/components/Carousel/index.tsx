@@ -25,7 +25,7 @@ const Carousel = ({
   let itemLength = Children.count(children);
 
   async function updateCarouselPosition(newPosition: number): Promise<void> {
-    await document.documentElement.style.setProperty(
+    await carouselRef.current?.style.setProperty(
       "--carousel-position",
       `${newPosition}px`
     );
