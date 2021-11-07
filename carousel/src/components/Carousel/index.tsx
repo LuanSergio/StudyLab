@@ -24,6 +24,8 @@ const Carousel = ({
   const Tag = tagName as keyof JSX.IntrinsicElements;
   const carouselRef = useRef<HTMLDivElement>(null);
   let itemLength = Children.count(children);
+  const maxPosition = (itemLength - 1) * totalItemWidth;
+  const minPosition = 0;
 
   async function updateCarouselPosition(newPosition: number): Promise<void> {
     await carouselRef.current?.style.setProperty(
@@ -61,8 +63,16 @@ const Carousel = ({
   function handleMouseMove(event: React.MouseEvent): void {
     if (isMouseLocked) {
       const travelDistance = event.clientX - initialPosition;
-      position = travelDistance + lastPosition;
-      updateCarouselPosition(position);
+
+      const newPosition = travelDistance + lastPosition;
+
+      if (
+        newPosition >= -Math.abs(maxPosition) &&
+        newPosition <= -Math.abs(minPosition)
+      ) {
+        position = newPosition;
+        updateCarouselPosition(position);
+      }
     }
   }
 
