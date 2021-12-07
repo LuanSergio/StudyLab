@@ -24,6 +24,7 @@ const Carousel = ({
   const Tag = tagName as keyof JSX.IntrinsicElements;
   const carouselRef = useRef<HTMLDivElement>(null);
   let itemLength = Children.count(children);
+  const maxIndex = itemLength - 1;
   const maxPosition = (itemLength - 1) * totalItemWidth;
   const minPosition = 0;
 
@@ -32,6 +33,7 @@ const Carousel = ({
       "--carousel-position",
       `${newPosition}px`
     );
+    index = Math.abs(Math.round(newPosition / totalItemWidth));
   }
 
   function setCarouselAnimationDuration() {
@@ -50,7 +52,6 @@ const Carousel = ({
   async function updateCarouselIndex(newPosition: number): Promise<void> {
     setCarouselAnimationDuration();
     await updateCarouselPosition(newPosition);
-
     removeCarouselAnimationDuration();
   }
 
@@ -80,37 +81,26 @@ const Carousel = ({
     event.preventDefault();
     lastPosition = position;
     isMouseLocked = false;
-
-    //jump effect
-    // index = Math.floor(Math.abs(position) / totalItemWidth);
-    // position = index * totalItemWidth;
-    // updateCarouselIndex(-position);
-  }
-
-  function goToPreviousIndex(newIndex: number): void {
-    console.log("index", index);
-
-    if (index > 0) {
-      console.log("previous item");
-
-      index--;
-      position = index * totalItemWidth;
-      updateCarouselIndex(-position);
-    }
-  }
-
-  function goToNextIndex(newIndex: number): void {
-    console.log("index", index);
-    if (index < itemLength - 1) {
-      console.log("next item");
-      index++;
-      position = index * totalItemWidth;
-      updateCarouselIndex(-position);
-    }
   }
 
   function handleMouseLeave(event: React.MouseEvent): void {
     isMouseLocked = false;
+  }
+
+  function goToPreviousIndex() {
+    if (index > minPosition) {
+      index = index - 1;
+      updateCarouselIndex(-(index * totalItemWidth));
+      lastPosition = -(index * totalItemWidth);
+    }
+  }
+
+  function goToNextIndex() {
+    if (index < maxIndex) {
+      index = index + 1;
+      updateCarouselIndex(-(index * totalItemWidth));
+      lastPosition = -(index * totalItemWidth);
+    }
   }
 
   return (
@@ -122,20 +112,13 @@ const Carousel = ({
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseLeave}
       >
-        <div
-          className="carousel"
-          ref={carouselRef}
-          // onMouseLeave={handleMouseLeave}
-        >
+        <div className="carousel" ref={carouselRef}>
           <Tag className="carousel__items-holder">{children}</Tag>
         </div>
       </div>
       <div className="carousel__controls">
-        <button onClick={() => goToPreviousIndex(itemWidth)}>
-          {"< Previous"}
-        </button>
-
-        <button onClick={() => goToNextIndex(-itemWidth)}>{"Next >"}</button>
+        <button onClick={goToPreviousIndex}>{"< Previous"}</button>
+        <button onClick={goToNextIndex}>{"Next >"}</button>
       </div>
     </>
   );
