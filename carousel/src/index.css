@@ -1,5 +1,6 @@
 :root {
   --carousel-position: 0;
+  --carousel-gap: 30px;
 }
 
 body {

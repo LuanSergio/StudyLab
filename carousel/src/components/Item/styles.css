@@ -1,14 +1,14 @@
 .item {
   background-color: rgb(83, 83, 83);
   color: #fff;
-  /* border: 2px solid #b3b3b3; */
-  height: 100vh;
+  min-height: 100%;
   width: 500px;
   flex-shrink: 0;
   font-size: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-grow: 1;
   pointer-events: none;
   transition-property: transform;
   transition-duration: 0s;

@@ -1,4 +1,4 @@
-import { Children, ReactNode, useRef } from "react";
+import { Children, ReactNode, useEffect, useRef } from "react";
 import "./styles.css";
 
 interface CarouselProps {
@@ -21,12 +21,17 @@ const Carousel = ({
   children,
   tagName = "div",
 }: CarouselProps): JSX.Element => {
+  let itemsQuantity = Children.count(children);
   const Tag = tagName as keyof JSX.IntrinsicElements;
   const carouselRef = useRef<HTMLDivElement>(null);
-  let itemLength = Children.count(children);
-  const maxIndex = itemLength - 1;
-  const maxPosition = (itemLength - 1) * totalItemWidth;
+  const maxIndex = itemsQuantity - 1;
+  const minIndex = 0;
+  const maxPosition = (itemsQuantity - 1) * totalItemWidth;
   const minPosition = 0;
+
+  useEffect(() => {
+    carouselRef.current?.style.setProperty("--carousel-gap", `${gap}px`);
+  }, []);
 
   async function updateCarouselPosition(newPosition: number): Promise<void> {
     await carouselRef.current?.style.setProperty(
@@ -81,6 +86,8 @@ const Carousel = ({
     event.preventDefault();
     lastPosition = position;
     isMouseLocked = false;
+    updateCarouselIndex(-(index * totalItemWidth));
+    lastPosition = -(index * totalItemWidth);
   }
 
   function handleMouseLeave(event: React.MouseEvent): void {
@@ -88,7 +95,7 @@ const Carousel = ({
   }
 
   function goToPreviousIndex() {
-    if (index > minPosition) {
+    if (index > minIndex) {
       index = index - 1;
       updateCarouselIndex(-(index * totalItemWidth));
       lastPosition = -(index * totalItemWidth);
@@ -104,23 +111,21 @@ const Carousel = ({
   }
 
   return (
-    <>
-      <div
-        className="container"
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
-        onMouseLeave={handleMouseLeave}
-      >
-        <div className="carousel" ref={carouselRef}>
-          <Tag className="carousel__items-holder">{children}</Tag>
-        </div>
+    <div
+      className="carousel"
+      onMouseDown={handleMouseDown}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
+      onMouseLeave={handleMouseLeave}
+    >
+      <div className="carousel__wrapper" ref={carouselRef}>
+        <Tag className="carousel__items-holder">{children}</Tag>
       </div>
       <div className="carousel__controls">
         <button onClick={goToPreviousIndex}>{"< Previous"}</button>
         <button onClick={goToNextIndex}>{"Next >"}</button>
       </div>
-    </>
+    </div>
   );
 };
 

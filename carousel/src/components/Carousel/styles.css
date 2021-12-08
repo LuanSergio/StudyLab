@@ -1,12 +1,15 @@
 .carousel {
-  width: 100%;
-  height: 100%;
+  overflow-x: hidden;
+}
+
+.carousel__wrapper {
+  height: 100vh;
+  overflow-x: visible;
   touch-action: pan-y;
   margin-left: auto;
   margin-right: auto;
   position: relative;
   user-select: none;
-  overflow-x: visible;
   transition-property: transform;
   transition-duration: 0s;
   transform: translateX(var(--carousel-position));
@@ -17,12 +20,12 @@
   margin-top: 0;
   margin-bottom: 0;
   display: flex;
-  /* border: hotpink 5px solid; */
+  height: 100%;
   padding-left: 0;
+  align-items: stretch;
   list-style: none;
-  max-width: 1200px;
   width: 100%;
-  gap: 30px;
+  gap: var(--carousel-gap);
   will-change: transform;
 }
 
