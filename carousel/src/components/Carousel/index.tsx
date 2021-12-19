@@ -5,6 +5,7 @@ import useCarousel from "./hook";
 interface CarouselProps {
   children: ReactNode;
   tagName?: keyof JSX.IntrinsicElements;
+  carouselDescription?: string;
 }
 
 const itemWidth = 500;
@@ -14,6 +15,7 @@ const totalItemWidth = itemWidth + gap;
 const Carousel = ({
   children,
   tagName = "div",
+  carouselDescription,
 }: CarouselProps): JSX.Element => {
   let itemsQuantity = Children.count(children);
   const Tag = tagName as keyof JSX.IntrinsicElements;
@@ -39,14 +41,43 @@ const Carousel = ({
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseLeave}
+      aria-roledescription="carousel"
+      aria-label={carouselDescription}
     >
       <div className="carousel__wrapper" ref={carouselRef}>
-        <Tag className="carousel__items-holder">{children}</Tag>
+        <Tag
+          className="carousel__items-holder"
+          aria-atomic="false"
+          aria-live="polite"
+        >
+          {children}
+        </Tag>
       </div>
       <div className="carousel__controls">
-        <button onClick={goToPreviousIndex}>{"< Previous"}</button>
-        <button onClick={goToNextIndex}>{"Next >"}</button>
+        <button aria-label="Previous slide" onClick={goToPreviousIndex}>
+          {"< Previous"}
+        </button>
+        <button aria-label="Next slide" onClick={goToNextIndex}>
+          {"Next >"}
+        </button>
       </div>
+      <ol className="carousel__bullet-container">
+        <li>
+          <button className="carousel__bullet carousel__bullet--active" />
+        </li>
+        <li>
+          <button className="carousel__bullet" />
+        </li>
+        <li>
+          <button className="carousel__bullet" />
+        </li>
+        <li>
+          <button className="carousel__bullet" />
+        </li>
+        <li>
+          <button className="carousel__bullet" />
+        </li>
+      </ol>
     </div>
   );
 };
