@@ -1,0 +1,70 @@
+#root {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.container {
+  list-style: none;
+  display: grid;
+  width: calc(100% - 44px);
+  gap: 20px;
+  border: 2px solid azure;
+  border-radius: 10px;
+  padding: 20px 20px;
+  margin-bottom: 40px;
+
+  /* */
+  grid-template-columns: repeat(
+    8,
+    1fr
+  ); /* use double the amount of columns you want to achieve */
+}
+
+.item {
+  height: 215px;
+  background-color: lightslategray;
+  border-radius: 30px;
+  display: block;
+
+  /* */
+  grid-column: span 2; /* number of columns divided by the number of items you want per row */
+}
+
+/* create a repeating pattern for the amount of items per row - 1 (in this case 4 - 1 = 3) */
+
+/* Dealing with 3 orphan items */
+
+/* past the half of items is negative */
+
+.item:last-child:nth-child(4n - 1) {
+  /*items less one */
+  grid-column-end: -2; /* - columns / items per row */
+}
+
+.item:nth-last-child(2):nth-child(4n - 2) {
+  grid-column-end: -4; /* - (columns / items per row) * 2 */
+}
+
+/* before the half of items is positive */
+
+.item:nth-last-child(3):nth-child(4n + 1) {
+  grid-column-end: 4; /* (columns / items per row) * 2 */
+}
+
+/* Dealing with 2 orphan items */
+
+.item:last-child:nth-child(4n - 2) {
+  grid-column-end: -3;
+}
+
+.item:nth-last-child(2):nth-child(4n + 1) {
+  grid-column-end: 5;
+}
+
+/* Dealing with single orphan */
+
+.item:last-child:nth-child(4n - 3) {
+  grid-column-end: 6;
+}
